@@ -3,6 +3,9 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
 }
+def apikeyPropertiesFile = rootProject.file("apikey.properties")
+def apikeyProperties = new Properties()
+apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
 
 android {
     compileSdk 32
@@ -13,6 +16,7 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
+        buildConfigField("String", "ACCESS_TOKEN", apikeyProperties['ACCESS_TOKEN'])
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
